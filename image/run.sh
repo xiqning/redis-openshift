@@ -50,6 +50,11 @@ function launchsentinel() {
 }
 
 function launchslave() {
+  if [[ ! -e /redis-slave-data ]]; then
+    echo "Redis slave data doesn't exist, data won't be persistent!"
+    mkdir /redis-slave-data
+  fi
+  
   while true; do
     master=$(redis-cli -h ${REDIS_SENTINEL_SERVICE_HOST} -p ${REDIS_SENTINEL_SERVICE_PORT} --csv SENTINEL get-master-addr-by-name mymaster | tr ',' ' ' | cut -d' ' -f1)
     if [[ -n ${master} ]]; then
