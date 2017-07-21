@@ -15,7 +15,7 @@
 FROM rhel7
 
 RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-10.noarch.rpm
-
+COPY 163.repo  /etc/yum.repos.d/163.repo
 RUN yum install redis hostname -y ; yum clean all
 
 COPY redis-master.conf /redis-master/redis.conf
