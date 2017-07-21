@@ -60,9 +60,10 @@ function launchslave() {
     if [[ -n ${master} ]]; then
       master="${master//\"}"
     else
-      echo "Failed to find master."
-      sleep 60
-      exit 1
+      master="${REDIS_MASTER_SERVICE_HOST}"
+      # echo "Failed to find master."
+      # sleep 60
+      # exit 1
     fi
     redis-cli -h ${master} INFO
     if [[ "$?" == "0" ]]; then
