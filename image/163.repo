@@ -1,0 +1,16 @@
+[base]
+name=CentOS-$releasever - Base - 163.com
+baseurl=http://mirrors.163.com/centos/7/os/$basearch/
+gpgcheck=0
+
+#released updates
+[updates]
+name=CentOS-$releasever - Updates - 163.com
+baseurl=http://mirrors.163.com/centos/7/updates/$basearch/
+gpgcheck=0
+
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras - 163.coms
+baseurl=http://mirrors.163.com/centos/7/extras/$basearch/
+gpgcheck=0
