@@ -55,25 +55,25 @@ function launchslave() {
     mkdir /redis-slave-data
   fi
   
-  while true; do
-    master=$(redis-cli -h ${REDIS_SENTINEL_SERVICE_HOST} -p ${REDIS_SENTINEL_SERVICE_PORT} --csv SENTINEL get-master-addr-by-name mymaster | tr ',' ' ' | cut -d' ' -f1)
-    if [[ -n ${master} ]]; then
-      master="${master//\"}"
-    else
-      master="${REDIS_MASTER_SERVICE_HOST}"
-      # echo "Failed to find master."
-      # sleep 60
-      # exit 1
-    fi
-    redis-cli -h ${master} INFO
-    if [[ "$?" == "0" ]]; then
-      break
-    fi
-    echo "Connecting to master failed.  Waiting..."
-    sleep 10
-  done
-  sed -i "s/%master-ip%/${master}/" /redis-slave/redis.conf
-  sed -i "s/%master-port%/6379/" /redis-slave/redis.conf
+  # while true; do
+  #   master=$(redis-cli -h ${REDIS_SENTINEL_SERVICE_HOST} -p ${REDIS_SENTINEL_SERVICE_PORT} --csv SENTINEL get-master-addr-by-name mymaster | tr ',' ' ' | cut -d' ' -f1)
+  #   if [[ -n ${master} ]]; then
+  #     master="${master//\"}"
+  #   else
+  #     master="${REDIS_MASTER_SERVICE_HOST}"
+  #     # echo "Failed to find master."
+  #     # sleep 60
+  #     # exit 1
+  #   fi
+  #   redis-cli -h ${master} INFO
+  #   if [[ "$?" == "0" ]]; then
+  #     break
+  #   fi
+  #   echo "Connecting to master failed.  Waiting..."
+  #   sleep 10
+  # done
+  # sed -i "s/%master-ip%/${master}/" /redis-slave/redis.conf
+  # sed -i "s/%master-port%/6379/" /redis-slave/redis.conf
   redis-server /redis-slave/redis.conf
 }
 
